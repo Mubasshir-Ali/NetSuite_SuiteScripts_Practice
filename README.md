@@ -1,0 +1,2 @@
+# NetSuite_SuiteScripts_Practice
+NetSuite SuiteScripts Practice
