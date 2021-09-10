@@ -33,7 +33,13 @@ function(record, runtime) {
 
         });
         employee.setValue('comment', notes);
-        employee.save();
+        employeeId = employee.save();
+
+        if (!employeeId) {
+            return 'failed';
+        }
+
+        return 'success';
 
     }
 
