@@ -18,7 +18,7 @@ function(record, runtime) {
      */
     function onAction(Context){
         var workflowTotal = runtime.getCurrentScript().getParameter({
-            name : ''
+            name : 'custscript_sdr_workflow_total'
         });
 
         var expRep = context.newRecord;
