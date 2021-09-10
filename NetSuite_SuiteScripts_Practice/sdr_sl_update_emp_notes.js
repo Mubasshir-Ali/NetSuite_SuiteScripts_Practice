@@ -9,7 +9,7 @@ define(['N/ui/serverWidget', 'N/record', 'N/redirect'],
  * @param {record} record
  * @param {redirect} redirect
  */
-function(serverWidget) {
+function(serverWidget, record, redirect) {
 
     /**
      * Definition of the Suitelet script trigger point.
@@ -69,8 +69,8 @@ function(serverWidget) {
             }
 
             else { // POST 
-                empId = '';
-                notes = '';
+                empId = request.parameters.custpage_sdr_emp_id;
+                notes = request.parameters.custpage_sdr_notes;
 
                 var employee = record.load({
                     type : record.Type.EMPLOYEE,

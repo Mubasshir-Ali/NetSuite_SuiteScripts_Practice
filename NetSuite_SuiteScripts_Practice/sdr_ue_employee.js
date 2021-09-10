@@ -74,8 +74,6 @@ function(record) {
                     sdr_empid : employee.id
                 }
             });
-
-
         }
     };
     
