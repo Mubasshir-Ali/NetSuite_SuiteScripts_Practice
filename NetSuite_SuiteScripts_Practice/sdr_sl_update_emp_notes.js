@@ -3,9 +3,11 @@
  * @NScriptType Suitlet
  * @NModuleScope SameAccount
  */
-define(['N/ui/serverWidget'],
+define(['N/ui/serverWidget', 'N/record', 'N/redirect'],
 /**
  * @param {serverWidget} serverWidget
+ * @param {record} record
+ * @param {redirect} redirect
  */
 function(serverWidget) {
 
@@ -21,47 +23,68 @@ function(serverWidget) {
         var request  = context.request;
         var response = context.response;
 
-        var name = request.parameters.sdr_name;
-        var notes = request.parameters.sdr_notes;
-        var empId = request.parameters.sdr_empid;
+        if (request.method == 'GET') {
+            var name = request.parameters.sdr_name;
+            var notes = request.parameters.sdr_notes;
+            var empId = request.parameters.sdr_empid;
 
 
-        var form = serverWidget.createForm({
-            title : 'Update Employee Notes',
-            // hideNavbar : true 
+            var form = serverWidget.createForm({
+                title : 'Update Employee Notes',
+                // hideNavbar : true 
 
-        });
+            });
 
-        var nameFld = form.addField({
-            id    : 'custpage_sdr_emp_name',
-            type  : serverWidget.FieldType.TEXT,
-            label : 'Name'
-        });
-        var notesFld = form.addField({
-            id    : 'custpage_sdr_notes',
-            type  : serverWidget.FieldType.TEXT,
-            label : 'Notes'
-        });
-        var empIdFld = form.addField({
-            id    : 'custpage_sdr_emp_id',
-            type  : serverWidget.FieldType.TEXT,
-            label : 'Emp ID'
-        });
+            var nameFld = form.addField({
+                id    : 'custpage_sdr_emp_name',
+                type  : serverWidget.FieldType.TEXT,
+                label : 'Name'
+            });
+            var notesFld = form.addField({
+                id    : 'custpage_sdr_notes',
+                type  : serverWidget.FieldType.TEXT,
+                label : 'Notes'
+            });
+            var empIdFld = form.addField({
+                id    : 'custpage_sdr_emp_id',
+                type  : serverWidget.FieldType.TEXT,
+                label : 'Emp ID'
+            });
 
-        form.addSubmitButton('Continue');
+            form.addSubmitButton('Continue');
 
-        nameFld.defaultValue  = name;
-        notesFld.defaultValue = notes;
-        empIdFld.defaultValue = empid;
+            nameFld.defaultValue  = name;
+            notesFld.defaultValue = notes;
+            empIdFld.defaultValue = empid;
 
-        nameFld.updateDisplayType({
-            displayType : serverWidget.FieldDisplayType.INLINE
-        });
-        nameFld.updateDisplayType({
-            displayType : serverWidget.FieldDisplayType.HIDDEN
-        });
+            nameFld.updateDisplayType({
+                displayType : serverWidget.FieldDisplayType.INLINE
+            });
+            nameFld.updateDisplayType({
+                displayType : serverWidget.FieldDisplayType.HIDDEN
+            });
 
-        response.writePage(form);
+            response.writePage(form);
+
+            }
+
+            else { // POST 
+                empId = '';
+                notes = '';
+
+                var employee = record.load({
+                    type : record.Type.EMPLOYEE,
+                    id   : empId
+                });
+                employee.setValue('comments', notes);
+                employee.save();
+
+                redirect.toRecord({
+                    type : record.Type.EMPLOYEE,
+                    id   : empId
+                });
+
+        }
 
     }
 
