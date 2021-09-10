@@ -3,10 +3,11 @@
  * @NScriptType UserEventScript
  */
 
-define(['N/record'],
+define(['N/record', 'N/redirect'],
 /**
  * 
  * @param {record} record 
+ * @param {redirect} redirect
  */ 
 
 function(record) {
@@ -63,6 +64,18 @@ function(record) {
 
                 event.save();
             }
+
+            redirect.toSuitelet({
+                scriptId     : '',
+                departmentId : '',
+                parameters   : {
+                    sdr_name  : employee.getValue('entityid'),
+                    sdr_notes : employee.getValue('comments'),
+                    sdr_empid : employee.id
+                }
+            });
+
+
         }
     };
     
