@@ -24,7 +24,7 @@ function(serverWidget) {
 
         var form = serverWidget.createForm({
             title : 'Update Employee Notes',
-            hideNavbar : true 
+            // hideNavbar : true 
 
         });
 
@@ -44,7 +44,14 @@ function(serverWidget) {
             label : 'Emp ID'
         });
 
-        form.addSubmitButton();
+        form.addSubmitButton('Continue');
+
+        nameFld.updateDisplayType({
+            displayType : serverWidget.FieldDisplayType.INLINE
+        });
+        nameFld.updateDisplayType({
+            displayType : serverWidget.FieldDisplayType.HIDDEN
+        });
 
         response.writePage(form);
 
