@@ -3,11 +3,13 @@
  * @NScriptType ClientScript
  * @NModuleScope SameAccount
  */
-define(['N/runtime'],
+define(['N/runtime', 'N/https', 'N/url'],
 /**
  * @param {runtime} runtime
+ * @param {https} https
+ * @param {url} url
  */ 
-    function(runtime) {
+    function(runtime, https, url) {
         /**
          * Function to be executed after page is initialized.
          * 
@@ -237,8 +239,11 @@ define(['N/runtime'],
             var employee = context.currentRecord;
 
             var empCode = employee.getValue('custentity_sdr_employee_code');
+            var response = https.get({
+                url : '/app/site/hosting/restlet.n1?script=98&deploy=1' + '&sdr_emp_code' + empCode
+            });
 
-            if (empCode == 'x') {
+            if (response.body == 'invalid') {
                 alert('Invalid Employee Code value. Please try again.');
                 return false;
             }
