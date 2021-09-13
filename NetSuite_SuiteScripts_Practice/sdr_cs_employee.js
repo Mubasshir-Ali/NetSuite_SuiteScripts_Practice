@@ -254,10 +254,8 @@ define(['N/runtime'],
             lineInit : lineInit,
             validateField : validateField,
             validateLine : validateLine,
-
+            validateInsert : validateInsert,
+            validateDelete : validateDelete,
+            saveRecord : saveRecord
         }
-
-
-    
-    
 });
