@@ -1,0 +1,3 @@
+<#if .locale == "us_US">
+      	<th scope="col">Last Modified ${.locale}</th>
+      </#if>
