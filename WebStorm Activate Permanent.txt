@@ -1,0 +1,2 @@
+Add this link to Plugin>Add to Manage Pluin repositories
+https://plugins.zhile.io
